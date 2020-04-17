@@ -1,0 +1,51 @@
+[class*="col-"] {
+    border: 0px solid red;
+    border-collapse: collapse; 
+}
+[class*="col-lg"] {
+    text-align: center;
+}
+table, th, td, .borders {
+    border: 1px solid black;
+    border-collapse: collapse;
+    margin: 0 auto;
+}
+[id*="button"] {
+    width: 150px;    
+    height: 140px;
+    background-color: white;
+    border: none;
+}
+#visibility, #restartGameVis, #resetGameVis {
+    visibility: hidden;
+}
+img {
+    width:150px ;
+    height: 140px;
+}
+@media (max-width: 575.98px) {
+    img {
+        width:100px;
+        height: 90px;
+    }
+    [id*="button"] {
+        width: 100px;    
+        height: 90px;
+        background-color: white;
+        border: none;
+    }
+    .btn {
+        padding: 5px 10px;
+        font-size: 13px;
+        border-radius: 5px;
+        width:30%;
+    } 
+    h1 {
+        font-size: 32px;
+    }
+    h2 {
+        font-size: 25px;
+    }
+}
+
+
