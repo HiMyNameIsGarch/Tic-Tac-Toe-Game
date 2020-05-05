@@ -1,11 +1,7 @@
-var tabel = [
-    [],
-    [],
-    [],
-];
+var tabel = [[], [], [],];
 var winner = '';
 var gameStart;
-var playerTurn = 1;
+var playerTurn;
 var turn = 1;
 var p1Score = 0;
 var p2Score = 0;
@@ -22,20 +18,19 @@ var tfWinner = document.getElementById('winner');
 var xInHtml = '<img src="images/X.png" alt="X">';
 var zeroInHtml = '<img src="images/0.png" alt="0">';
 var button = '<input type="button" id="button" onclick="clickBtn()">';
-
-
 function startGame() {
+    playerTurn = 1;
     tfScore.innerHTML = 'Score: <br><br> Player 1 : ' + p1Score + '<br> Player 2 : ' + p2Score;
     tfPlayerTurn.innerHTML = 'Player\'s ' + playerTurn + ' round';
     for (let i = 1; i <= 9; i++) {
         tfButtons = document.getElementById('p' + i);
         tfButtons.innerHTML = '<input type="button" id="button' + i + '" onclick="clickBtn' + i + '()"></input>';
     }
-    resetGameVisibility.style.visibility = 'visible';
+    resetGameVisibility.style.visibility = 'hidden';
     WarningMessage.style.visibility = 'hidden';
     visible.style.visibility = 'visible';
     startGameVisibility.style.visibility = 'hidden';
-    restartGameVisibility.style.visibility = 'visible';
+    restartGameVisibility.style.visibility = 'hidden';
     gameStart = true;
 
 }
@@ -43,14 +38,10 @@ function restartGame() {
     gameStart = true;
     winner = '';
     tfWinner.innerHTML = '';
-    tfPlayerTurn.innerHTML = 'Player\'s 1 round';
-    playerTurn = 1;
+    changePlayerTurn(playerTurn);
+    tfPlayerTurn.innerHTML = 'Player\'s ' + playerTurn + ' round';
     turn = 1;
-    tabel = [
-        [],
-        [],
-        [],
-    ];
+    tabel = [[], [], [],];
     for (let i = 1; i < 10; i++) {
         imagePlacer = document.getElementById('p' + i);
         imagePlacer.innerHTML = '<input type="button" id="button' + i + '" onclick="clickBtn' + i + '()"></input>';
@@ -65,135 +56,135 @@ function resetGame() {
 function clickBtn1() {
     imagePlacer = document.getElementById('p1');
     if (gameStart === true) {
-        if (turn % 2 !== 0) {
+        if (playerTurn % 2 !== 0) {
             tabel[0][0] = 'X';
             updateStats(1);
-            verifyTheWinner();
+            if (turn >= 6) verifyTheWinner();
         }
         else {
             tabel[0][0] = '0';
             updateStats(0);
-            verifyTheWinner();
+            if (turn >= 6) verifyTheWinner();
         }
     }
 }
 function clickBtn2() {
     imagePlacer = document.getElementById('p2');
     if (gameStart === true) {
-        if (turn % 2 !== 0) {
+        if (playerTurn % 2 !== 0) {
             tabel[0][1] = 'X';
             updateStats(1);
-            verifyTheWinner();
+            if (turn >= 6) verifyTheWinner();
         }
         else {
             tabel[0][1] = '0';
             updateStats(0);
-            verifyTheWinner();
+            if (turn >= 6) verifyTheWinner();
         }
     }
 }
 function clickBtn3() {
     imagePlacer = document.getElementById('p3');
     if (gameStart === true) {
-        if (turn % 2 !== 0) {
+        if (playerTurn % 2 !== 0) {
             tabel[0][2] = 'X';
             updateStats(1);
-            verifyTheWinner();
+            if (turn >= 6) verifyTheWinner();
         }
         else {
             tabel[0][2] = '0';
             updateStats(0);
-            verifyTheWinner();
+            if (turn >= 6) verifyTheWinner();
         }
     }
 }
 function clickBtn4() {
     imagePlacer = document.getElementById('p4');
     if (gameStart === true) {
-        if (turn % 2 !== 0) {
+        if (playerTurn % 2 !== 0) {
             tabel[1][0] = 'X';
             updateStats(1);
-            verifyTheWinner();
+            if (turn >= 6) verifyTheWinner();
         }
         else {
             tabel[1][0] = '0';
             updateStats(0);
-            verifyTheWinner();
+            if (turn >= 6) verifyTheWinner();
         }
     }
 }
 function clickBtn5() {
     imagePlacer = document.getElementById('p5');
     if (gameStart === true) {
-        if (turn % 2 !== 0) {
+        if (playerTurn % 2 !== 0) {
             tabel[1][1] = 'X';
             updateStats(1);
-            verifyTheWinner();
+            if (turn >= 6) verifyTheWinner();
         }
         else {
             tabel[1][1] = '0';
             updateStats(0);
-            verifyTheWinner();
+            if (turn >= 6) verifyTheWinner();
         }
     }
 }
 function clickBtn6() {
     imagePlacer = document.getElementById('p6');
     if (gameStart === true) {
-        if (turn % 2 !== 0) {
+        if (playerTurn % 2 !== 0) {
             tabel[1][2] = 'X';
             updateStats(1);
-            verifyTheWinner();
+            if (turn >= 6) verifyTheWinner();
         }
         else {
             tabel[1][2] = '0';
             updateStats(0);
-            verifyTheWinner();
+            if (turn >= 6) verifyTheWinner();
         }
     }
 }
 function clickBtn7() {
     imagePlacer = document.getElementById('p7');
     if (gameStart === true) {
-        if (turn % 2 !== 0) {
+        if (playerTurn % 2 !== 0) {
             tabel[2][0] = 'X';
             updateStats(1);
-            verifyTheWinner();
+            if (turn >= 6) verifyTheWinner();
         }
         else {
             tabel[2][0] = '0';
             updateStats(0);
-            verifyTheWinner();
+            if (turn >= 6) verifyTheWinner();
         }
     }
 }
 function clickBtn8() {
     imagePlacer = document.getElementById('p8');
     if (gameStart === true) {
-        if (turn % 2 !== 0) {
+        if (playerTurn % 2 !== 0) {
             updateStats(1);
             tabel[2][1] = 'X';
-            verifyTheWinner();
+            if (turn >= 6) verifyTheWinner();
         }
         else {
             updateStats(0)
             tabel[2][1] = '0';
-            verifyTheWinner();
+            if (turn >= 6) verifyTheWinner();
         }
     }
 }
 function clickBtn9() {
     imagePlacer = document.getElementById('p9');
     if (gameStart === true) {
-        if (turn % 2 !== 0) {
+        if (playerTurn % 2 !== 0) {
             tabel[2][2] = 'X';
             updateStats(1);
-            verifyTheWinner();
+            if (turn >= 6) verifyTheWinner();
         }
         else {
             tabel[2][2] = '0';
             updateStats(0);
-            verifyTheWinner();
+            if (turn >= 6) verifyTheWinner();
         }
     }
 }
@@ -220,6 +211,8 @@ function verifyTheWinner() {
     }
     else if ((turn === 10) && (tfWinner.innerHTML == '')) {
         tfWinner.innerHTML = 'Nobody wins! Try again!';
+        resetGameVisibility.style.visibility = 'visible';
+        restartGameVisibility.style.visibility = 'visible';
     }
 }
 function equals(a, b, c) {
@@ -227,8 +220,9 @@ function equals(a, b, c) {
 }
 function whoWins(w) {
     if ((w === 'X') || (w === '0')) {
-        playerTurn--;
-        playerTurn == 1 ? p1Score++ : p2Score++;
+        resetGameVisibility.style.visibility = 'visible';
+        restartGameVisibility.style.visibility = 'visible';
+        (playerTurn - 1) == 1 ? p1Score++ : p2Score++;
         tfScore.innerHTML = 'Score: <br><br> Player 1 : ' + p1Score + '<br> Player 2 : ' + p2Score;
         tfWinner.innerHTML = winner + ' wins!';
         gameStart = false;
@@ -245,4 +239,14 @@ function updateStats(n) {
     }
     turn++;
     tfPlayerTurn.innerHTML = 'Player\'s ' + playerTurn + ' round';
+}
+function changePlayerTurn(turn) {
+    if (turn == 2) {
+        turn--;
+        return turn;
+    }
+    if (turn == 1) {
+        turn++;
+        return turn;
+    }
 }
