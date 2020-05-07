@@ -2,6 +2,7 @@ var tabel = [[], [], [],];
 var winner = '';
 var gameStart;
 var playerTurn;
+var gamesPlayed = 0;
 var turn = 1;
 var p1Score = 0;
 var p2Score = 0;
@@ -19,13 +20,13 @@ var xInHtml = '<img src="images/X.png" alt="X">';
 var zeroInHtml = '<img src="images/0.png" alt="0">';
 var button = '<input type="button" id="button" onclick="clickBtn()">';
 function startGame() {
-    playerTurn = 1;
-    tfScore.innerHTML = 'Score: <br><br> Player 1 : ' + p1Score + '<br> Player 2 : ' + p2Score;
-    tfPlayerTurn.innerHTML = 'Player\'s ' + playerTurn + ' round';
     for (let i = 1; i <= 9; i++) {
         tfButtons = document.getElementById('p' + i);
         tfButtons.innerHTML = '<input type="button" id="button' + i + '" onclick="clickBtn' + i + '()"></input>';
-    }
+    };
+    playerTurn = 1;
+    tfScore.innerHTML = 'Score: <br><br> Player 1 : ' + p1Score + '<br> Player 2 : ' + p2Score;
+    tfPlayerTurn.innerHTML = 'Player\'s ' + playerTurn + ' round';
     resetGameVisibility.style.visibility = 'hidden';
     WarningMessage.style.visibility = 'hidden';
     visible.style.visibility = 'visible';
@@ -35,17 +36,19 @@ function startGame() {
 
 }
 function restartGame() {
-    gameStart = true;
-    winner = '';
-    tfWinner.innerHTML = '';
-    changePlayerTurn(playerTurn);
-    tfPlayerTurn.innerHTML = 'Player\'s ' + playerTurn + ' round';
-    turn = 1;
-    tabel = [[], [], [],];
     for (let i = 1; i < 10; i++) {
         imagePlacer = document.getElementById('p' + i);
         imagePlacer.innerHTML = '<input type="button" id="button' + i + '" onclick="clickBtn' + i + '()"></input>';
-    }
+    };
+    tabel = [[], [], [],];
+    turn = 1;
+    winner = '';
+    tfWinner.innerHTML = '';
+    playerTurn = changePlayerTurn(gamesPlayed);
+    tfPlayerTurn.innerHTML = 'Player\'s ' + playerTurn + ' round';
+    restartGameVisibility.style.visibility = 'hidden';
+    resetGameVisibility.style.visibility = 'hidden';
+    gameStart = true;
 }
 function resetGame() {
     restartGame();
@@ -213,6 +216,7 @@ function verifyTheWinner() {
         tfWinner.innerHTML = 'Nobody wins! Try again!';
         resetGameVisibility.style.visibility = 'visible';
         restartGameVisibility.style.visibility = 'visible';
+        gamesPlayed++;
     }
 }
 function equals(a, b, c) {
@@ -225,6 +229,7 @@ function whoWins(w) {
         (playerTurn - 1) == 1 ? p1Score++ : p2Score++;
         tfScore.innerHTML = 'Score: <br><br> Player 1 : ' + p1Score + '<br> Player 2 : ' + p2Score;
         tfWinner.innerHTML = winner + ' wins!';
+        gamesPlayed++;
         gameStart = false;
     }
 }
@@ -240,13 +245,7 @@ function updateStats(n) {
     turn++;
     tfPlayerTurn.innerHTML = 'Player\'s ' + playerTurn + ' round';
 }
-function changePlayerTurn(turn) {
-    if (turn == 2) {
-        turn--;
-        return turn;
-    }
-    if (turn == 1) {
-        turn++;
-        return turn;
-    }
+function changePlayerTurn(d) {
+    if (d % 2 == 0) return 1
+    else return 2
 }
