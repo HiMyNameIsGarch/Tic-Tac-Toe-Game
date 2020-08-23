@@ -1,4 +1,7 @@
 var tabel = [['', '', ''], ['', '', ''], ['', '', '']];
+var emptySpots = [];
+var gameMode = '';
+var botDifficulty = '';
 var winner = '';
 var gameStart;
 var playerTurn;
@@ -11,7 +14,6 @@ var imagePlacer;
 var resetGameVisibility = document.getElementById('resetGameVis');
 var restartGameVisibility = document.getElementById('restartGameVis');
 var startGameVisibility = document.getElementById('startGameVis');
-var visible = document.getElementById('visibility');
 var tfPlayerTurn = document.getElementById('playerTurn');
 var tfScore = document.getElementById('score');
 var tfWinner = document.getElementById('winner');
@@ -23,6 +25,17 @@ function GenerateBtns(location) {
         location.innerHTML = '<input type="button" id="button' + i + '" onclick="clickBtn(' + i + ')"></input>';
     };
 }
+function setBotDifficulty(difficulty) {
+    botDifficulty = difficulty;
+    document.getElementById("botDiff").style.display = "none";
+    startGame();
+}
+function setGameMode(gameM) {
+    document.getElementById("gameModeBtns").style.display = "none";
+    gameMode = gameM;
+    if (gameM == "1 Player") document.getElementById("botDiff").style.display = "inline";
+    else startGame();
+}
 function startGame() {
     GenerateBtns(tfButtons);
     playerTurn = 1;
@@ -30,7 +43,7 @@ function startGame() {
     tfPlayerTurn.innerHTML = 'Player\'s ' + playerTurn + ' round';
     resetGameVisibility.style.visibility = 'hidden';
     document.getElementById('startMessage').style.visibility = 'hidden';
-    visible.style.visibility = 'visible';
+    document.getElementById('gameBoard').style.visibility = 'visible';
     startGameVisibility.style.visibility = 'hidden';
     restartGameVisibility.style.visibility = 'hidden';
     gameStart = true;
@@ -47,6 +60,42 @@ function restartGame() {
     restartGameVisibility.style.visibility = 'hidden';
     resetGameVisibility.style.visibility = 'hidden';
     gameStart = true;
+}
+function botTurn() {
+    if (!gameStart) return;
+    if (botDifficulty == "Easy") {
+        findEmptySpots();
+        let spot = emptySpots[Math.floor(Math.random() * emptySpots.length)];
+        imagePlacer = document.getElementById('p' + spot.BtnNum);
+        putMove(spot.i, spot.j);
+    }
+    else {
+
+    }
+}
+function findEmptySpots() {
+    emptySpots = [];
+    for (let i = 0; i < 3; i++) {
+        for (let j = 0; j < 3; j++) {
+            if (tabel[i][j] == "") {
+                emptySpots.push({
+                    BtnNum: getBtnNum(i, j), i, j
+                });
+            }
+        }
+    }
+}
+function getBtnNum(col1, col2) {
+    switch (col1) {
+        case 0:
+            return col2 + 1;
+        case 1:
+            return col2 + 4;
+        case 2:
+            return col2 + 7;
+        default:
+            return 0;
+    }
 }
 function clickBtn(NumBtn) {
     if (!gameStart) return;
@@ -83,6 +132,11 @@ function clickBtn(NumBtn) {
             break;
     }
     if (turn >= 6) verifyTheWinner();
+    if (gameMode == "1 Player") {
+        setTimeout(() => {
+            botTurn();
+        }, 900);
+    }
 }
 function putMove(pos1, pos2) {
     tabel[pos1][pos2] = playerTurn % 2 != 0 ? 'X' : '0';
@@ -111,7 +165,7 @@ function verifyTheWinner() {
         winner = tabel[0][0];
         whoWins(winner);
     }
-    if (equals(tabel[2][0], tabel[1][1], tabel[0][2])) {
+    else if (equals(tabel[2][0], tabel[1][1], tabel[0][2])) {
         winner = tabel[2][0];
         whoWins(winner);
     }

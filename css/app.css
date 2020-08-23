@@ -1,5 +1,5 @@
 [class*="col-"] {
-    border: 0px solid red;
+    border: 1px solid red;
     border-collapse: collapse; 
 }
 [class*="col-lg"] {
@@ -16,8 +16,11 @@ table, th, td, .borders {
     background-color: white;
     border: none;
 }
-#visibility, #restartGameVis, #resetGameVis {
+#gameBoard, #restartGameVis, #resetGameVis {
     visibility: hidden;
+}
+#botDiff{
+    display: none;
 }
 img {
     width:150px ;
